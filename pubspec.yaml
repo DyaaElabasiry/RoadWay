@@ -44,6 +44,13 @@ dependencies:
   receive_sharing_intent: ^1.8.0
   flutter_map: ^7.0.1
   latlong2: ^0.9.1
+  alarm: ^3.1.4
+  flutter_background_service: ^5.0.6
+  flutter_local_notifications: ^17.2.1
+  flutter_popup: ^3.3.0
+  android_alarm_manager_plus: ^4.0.3
+
+
 
 
 dev_dependencies:
@@ -69,8 +76,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/sun.png
+    - assets/alarm_samsung.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -2,7 +2,7 @@ import 'package:apsl_sun_calc/apsl_sun_calc.dart';
 import 'package:latlong2/latlong.dart';
 import 'dart:math' as math;
 
-void getSeatLocation(DateTime date , LatLng location,LatLng currentLocation,LatLng destinationLocation){
+List getSeatLocation(DateTime date , LatLng location,LatLng currentLocation,LatLng destinationLocation){
   var sunPosition = SunCalc.getSunPosition(date,location.latitude, location.longitude);  // altitude and azimuth of the sun
   double  azimuth = sunPosition['azimuth']! * 180 / math.pi;
   double altitude = sunPosition['altitude']! * 180 / math.pi;
@@ -49,4 +49,5 @@ void getSeatLocation(DateTime date , LatLng location,LatLng currentLocation,LatL
     sun_intensity = 'High';
   }
   print('Sun Position: $sun_position and Sun Intensity: $sun_intensity');
+  return [sun_position,sun_intensity];
 }

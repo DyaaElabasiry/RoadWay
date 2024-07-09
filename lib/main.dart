@@ -1,3 +1,5 @@
+import 'package:alarm/alarm.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:cool_seat/database%20helper.dart';
 import 'package:cool_seat/deep_link.dart';
 import 'package:cool_seat/links.dart';
@@ -10,14 +12,19 @@ import 'package:geolocator/geolocator.dart';
 import 'package:path/path.dart';
 import 'dart:math' as math;
 import 'package:flutter/services.dart';
-
+import 'background_process.dart';
 import 'package:sqflite/sqflite.dart';
+import 'background_process.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize the database
   DatabaseHelper database = DatabaseHelper();
   database.init();
+  await Alarm.init();
+  await initializeBackgroundService();
+  await AndroidAlarmManager.initialize();
+
   runApp(const MyApp());
 }
 
@@ -27,10 +34,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // Set status bar color to white
-      statusBarIconBrightness: Brightness.dark, // Set status bar icons to dark
-    ));
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Hot Seat',
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: DeepLinkTestWidget(),
       // const MyHomePage(),
     );
   }
@@ -56,12 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var sunPosition = SunCalc.getSunPosition(DateTime.now(),69, -72);
-    double  azimuth = sunPosition['azimuth']! * 180 / math.pi;
+    var sunPosition = SunCalc.getSunPosition(DateTime.now(), 69, -72);
+    double azimuth = sunPosition['azimuth']! * 180 / math.pi;
     double altitude = sunPosition['altitude']! * 180 / math.pi;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
 
       ),
       body: Center(

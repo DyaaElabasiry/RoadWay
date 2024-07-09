@@ -1,7 +1,10 @@
 import 'package:cool_seat/current_destination_location_helper.dart';
 import 'package:cool_seat/location_service.dart';
+import 'package:cool_seat/weather_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:latlong2/latlong.dart';
 
 class OSMScreen extends StatefulWidget {
@@ -18,6 +21,10 @@ class _OSMScreenState extends State<OSMScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // Set status bar color to white
+      statusBarIconBrightness: Brightness.dark, // Set status bar icons to dark
+    ));
     Size screenSize = MediaQuery.of(context).size;
     double bottomWidgetHeight = 300;
     return Scaffold(
@@ -62,11 +69,13 @@ class _OSMScreenState extends State<OSMScreen> {
                   child: InkWell(
                     onTap: () async {
                       try {
-                        LatLng currentLocation = await locationService.determinePosition();
+                        LatLng currentLocation =
+                            await locationService.determinePosition();
                         locationController.setCurrentLocation(currentLocation);
 
-                        if(locationController.currentLocation!=null){
-                          mapController.move(locationController.currentLocation!, 15);
+                        if (locationController.currentLocation != null) {
+                          mapController.move(
+                              locationController.currentLocation!, 15);
                         }
                         setState(() {});
                       } on Exception catch (e) {
@@ -99,7 +108,75 @@ class _OSMScreenState extends State<OSMScreen> {
               Positioned(
                   bottom: 100,
                   right: 10,
-                  child: InkWell(
+                  child: CustomPopup(
+                    content: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 350,
+                      ),
+                      child: SingleChildScrollView(
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(7),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(250, 81, 65, 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(Icons.delete_outline,color: Colors.white,),
+                                ),
+                              ),
+                              Container(
+                                  padding: EdgeInsets.all(7),
+                                  margin: EdgeInsets.all(7),
+                                  decoration: BoxDecoration(
+
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    'Home',
+                                    style: TextStyle(fontSize: 22),
+                                  )),
+
+                            ],
+                          ),
+                          Row(
+                              mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(7),
+                                decoration: BoxDecoration(
+
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(Icons.delete,color: Colors.red,),
+                              ),
+                              Container(
+                                  padding: EdgeInsets.all(7),
+                                  margin: EdgeInsets.all(7),
+                                  decoration: BoxDecoration(
+
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    'Work',
+                                    style: TextStyle(fontSize: 22),
+                                  )),
+                            ],
+                          ),
+
+                        ]),
+                      ),
+                    ),
                     child: Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
@@ -117,6 +194,31 @@ class _OSMScreenState extends State<OSMScreen> {
                         ),
                         child: Icon(
                           Icons.bookmarks_outlined,
+                          color: Colors.black,
+                          size: 30,
+                        )),
+                  )),
+              Positioned(
+                  bottom: 170,
+                  right: 10,
+                  child: InkWell(
+                    child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.bookmark_add_outlined,
                           color: Colors.black,
                           size: 30,
                         )),
@@ -295,28 +397,30 @@ class _OSMScreenState extends State<OSMScreen> {
                           if (locationController.currentLocation == null &&
                               locationController.destinationLocation == null) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Please select current and destination locations.'),
+                              content: Text(
+                                  'Please select current and destination locations.'),
                             ));
-                          }else{
-                            
+                          } else {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => WeatherScreen()));
                           }
                         },
                         child: Container(
-                      margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      padding: EdgeInsets.fromLTRB(20, 7, 20, 7),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.black,
-                      ),
-                      child: Center(
-                          child: Text(
-                        'Next',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      )),
-                    )),
+                          margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                          padding: EdgeInsets.fromLTRB(20, 7, 20, 7),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.black,
+                          ),
+                          child: Center(
+                              child: Text(
+                            'Next',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          )),
+                        )),
                   ),
                 ],
               ),

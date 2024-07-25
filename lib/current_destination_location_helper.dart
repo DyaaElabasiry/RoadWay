@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-class LocationController {
+class LocationController extends ChangeNotifier {
 
   static final LocationController _singleton = LocationController
       ._internal();
@@ -17,7 +17,12 @@ class LocationController {
 
   LatLng? currentLocation ;
   LatLng? destinationLocation ;
-  double locationFocus=0;
+  // double locationFocus=0;
+  //
+  // setLocationFocus(double focus){
+  //   locationFocus = focus;
+  //   notifyListeners();
+  // }
 
   List<Marker> currentDestinationMarkersList = [const Marker(
     width: 0,
@@ -54,6 +59,7 @@ class LocationController {
         ),
       ),
     );
+    notifyListeners();
   }
   void setDestinationLocation(LatLng latLng) {
     destinationLocation = latLng;
@@ -77,5 +83,6 @@ class LocationController {
         ),
       ),
     );
+    notifyListeners();
   }
 }

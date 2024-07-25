@@ -1,6 +1,6 @@
 import 'package:alarm/alarm.dart';
 import 'package:alarm/model/alarm_settings.dart';
-import 'package:cool_seat/background_process.dart';
+import 'package:cool_seat/background/background_process.dart';
 import 'package:cool_seat/links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
@@ -154,34 +154,7 @@ class _DeepLinkTestWidgetState extends State<DeepLinkTestWidget> {
             ),
             InkWell(
               onTap: () {
-                Future.delayed(Duration(seconds: 5), () {
-                  FlutterLocalNotificationsPlugin().show(
-                      33,
-                      'title',
-                      'body',
-                      NotificationDetails(
-                        android: AndroidNotificationDetails(
-                          'my_foreground',
-                          'MY FOREGROUND SERVICE',
-                          priority: Priority.high,
-                          importance: Importance.high,
-                          fullScreenIntent: true,
-                          playSound: true,
-                          actions: <AndroidNotificationAction>[
-                            AndroidNotificationAction(
-                              'action_one',
-                              'Action One',
-                              showsUserInterface: true,
-                            ),
-                            AndroidNotificationAction(
-                              'action_two',
-                              'Action Two',
-                              showsUserInterface: true,
-                            ),
-                          ],
-                        ),
-                      ));
-                });
+
               },
               child: Container(
                 padding: EdgeInsets.all(10),
@@ -198,8 +171,8 @@ class _DeepLinkTestWidgetState extends State<DeepLinkTestWidget> {
             ),
             InkWell(
               onTap: () {
+                FlutterBackgroundService().invoke('stopAlarm');
 
-                  Alarm.stopAll();
 
               },
               child: Container(
@@ -211,6 +184,32 @@ class _DeepLinkTestWidgetState extends State<DeepLinkTestWidget> {
                 ),
                 child: Text(
                   'Stop Alarm',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                FlutterBackgroundService().on('update').listen((event) {
+                  print('got from the app');
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(event!['data']),
+                  ));
+                });
+
+                FlutterBackgroundService().invoke('getAlarmState');
+
+
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'getAlarmState',
                   style: TextStyle(color: Colors.white),
                 ),
               ),

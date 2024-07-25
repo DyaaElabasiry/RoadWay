@@ -3,6 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CarBoxRightSunRay extends StatelessWidget {
+  final double sunRayAngle;
+  final String timeTitle;
+
+  const CarBoxRightSunRay({super.key, required this.sunRayAngle, required this.timeTitle});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -71,7 +75,7 @@ class CarBoxRightSunRay extends StatelessWidget {
                       ),
                     ),
                     ClipPath(
-                      clipper: SunRayPath(),
+                      clipper: SunRayPath(sunRayAngle: sunRayAngle),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.yellow,
@@ -120,7 +124,7 @@ class CarBoxRightSunRay extends StatelessWidget {
           top: -5,
           left: 45,
           child: Text(
-            'Now',
+            timeTitle,
             style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
           ),
         )
@@ -130,11 +134,14 @@ class CarBoxRightSunRay extends StatelessWidget {
 }
 
 class SunRayPath extends CustomClipper<Path> {
+  final double sunRayAngle;
+
+  SunRayPath({super.reclip, required this.sunRayAngle});
+
   @override
   Path getClip(Size size) {
     final Path path = Path();
-    double angle = 30;
-    double tanAngle = tan(angle * pi / 180);
+    double tanAngle = tan(sunRayAngle * pi / 180);
     path.moveTo(size.width, 0);
     for (double x = 0; x <= size.width; x++) {
       double y = tanAngle * x;

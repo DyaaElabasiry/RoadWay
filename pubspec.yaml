@@ -1,4 +1,4 @@
-name: cool_seat
+name: RoadWay
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -48,7 +48,9 @@ dependencies:
   flutter_background_service: ^5.0.6
   flutter_local_notifications: ^17.2.1
   flutter_popup: ^3.3.0
-  android_alarm_manager_plus: ^4.0.3
+  wheel_picker: ^0.0.5
+  open_meteo: ^1.0.7
+  provider: ^6.1.2
 
 
 

@@ -7,7 +7,7 @@ class DatabaseHelper{
   factory DatabaseHelper() => _instance;
 
   Database? database;
-  void init()async{
+  Future init()async{
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'savedlocations.db');
     Database database = await openDatabase(path, version: 1,
@@ -23,6 +23,7 @@ class DatabaseHelper{
     await database?.transaction((txn) async {
       txn.rawInsert('INSERT INTO savedlocations(name, latitude, longitude) VALUES("${savedLocation.name}", ${savedLocation.latitude}, ${savedLocation.longitude})');
     });
+    print('saved a location');
   }
 
   void delete(SavedLocation savedLocation)async{
@@ -33,13 +34,14 @@ class DatabaseHelper{
 
   Future<List<SavedLocation>>? getAllSavedLocations()async{
     print('hello1');
-    List<Map<String, dynamic>> list = await database!.rawQuery('SELECT * FROM savedlocations');
+    List<Map<String, dynamic>>? list = await database!.rawQuery('SELECT * FROM savedlocations');
     List<SavedLocation> savedLocations = [];
     print('hello2');
     print(list);
     for (Map<String, dynamic> map in list){
       savedLocations.add(SavedLocation.fromMap(map));
     }
+    //will return an empty list if no locations are saved
     return savedLocations;
   }
   

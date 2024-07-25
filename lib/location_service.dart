@@ -23,7 +23,7 @@ class LocationService {
     // if (!serviceEnabled) {
     //   return Future.error('Location services are disabled.');
     // }
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
     return LatLng(position.latitude, position.longitude);
   }
 }

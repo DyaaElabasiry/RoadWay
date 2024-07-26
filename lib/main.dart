@@ -1,27 +1,11 @@
 import 'dart:async';
-
-import 'package:alarm/alarm.dart';
-import 'package:cool_seat/alarm_screen.dart';
-import 'package:cool_seat/current_destination_location_helper.dart';
-import 'package:cool_seat/database%20helper.dart';
-import 'package:cool_seat/deep_link.dart';
-import 'package:cool_seat/last_feature.dart';
-import 'package:cool_seat/links.dart';
-import 'package:cool_seat/maps_screen/maps_screen.dart';
-import 'package:cool_seat/sqflite_test.dart';
-import 'package:cool_seat/weather_screen/weather_screen.dart';
+import 'package:RoadWay/alarm_screen.dart';
+import 'package:RoadWay/database/database%20helper.dart';
+import 'package:RoadWay/maps_screen/maps_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:apsl_sun_calc/apsl_sun_calc.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:path/path.dart';
-import 'dart:math' as math;
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'background/background_process.dart';
-import 'package:sqflite/sqflite.dart';
-import 'background/background_process.dart';
-import 'location_focus.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
       // const MyHomePage(),
     );
   }
@@ -86,6 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return alarmState ? AlarmScreen() : OSMScreen();
+    return alarmState ? const AlarmScreen() : const OSMScreen();
   }
 }

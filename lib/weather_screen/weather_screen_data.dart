@@ -1,9 +1,7 @@
-import 'package:cool_seat/current_destination_location_helper.dart';
-import 'package:cool_seat/weather_screen/get_weather.dart';
-import 'package:cool_seat/location_service.dart';
+import 'package:RoadWay/weather_screen/get_weather.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../determine_sun_location_alogrithm.dart';
+import '../location/determine_sun_location_alogrithm.dart';
 
 class WeatherScreenData {
   // Variables to store weather data
@@ -32,12 +30,12 @@ class WeatherScreenData {
     this.sunLocationNow = getSunLocation(
         DateTime.now(), currentLocation, currentLocation, destinationLocation);
     this.sunLocationAfterOneHour = getSunLocation(
-        DateTime.now().add(Duration(hours: 1)),
+        DateTime.now().add(const Duration(hours: 1)),
         currentLocation,
         currentLocation,
         destinationLocation);
     this.sunLocationAfterTwoHours = getSunLocation(
-        DateTime.now().add(Duration(hours: 2)),
+        DateTime.now().add(const Duration(hours: 2)),
         currentLocation,
         currentLocation,
         destinationLocation);

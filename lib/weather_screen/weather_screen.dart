@@ -1,8 +1,9 @@
-import 'package:cool_seat/weather_screen/Night.dart';
-import 'package:cool_seat/weather_screen/car_right_sunray_widget.dart';
-import 'package:cool_seat/current_destination_location_helper.dart';
-import 'package:cool_seat/determine_sun_location_alogrithm.dart';
-import 'package:cool_seat/weather_screen/weather_screen_data.dart';
+import 'package:RoadWay/weather_screen/Night.dart';
+import 'package:RoadWay/weather_screen/car_right_sunray_widget.dart';
+// ignore: unused_import
+import 'package:RoadWay/location/current_destination_location_helper.dart';
+import 'package:RoadWay/location/determine_sun_location_alogrithm.dart';
+import 'package:RoadWay/weather_screen/weather_screen_data.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -38,8 +39,8 @@ class _WeatherScreenState extends State<WeatherScreen>
       vsync: this,
     );
     _animation1 = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset(0, 0),
+      begin: const Offset(0, 0.2),
+      end: const Offset(0, 0),
     ).animate(CurvedAnimation(
       parent: _controller1,
       curve: Curves.easeOut,
@@ -51,8 +52,8 @@ class _WeatherScreenState extends State<WeatherScreen>
       vsync: this,
     );
     _animation2 = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset(0, 0),
+      begin: const Offset(0, 0.2),
+      end: const Offset(0, 0),
     ).animate(CurvedAnimation(
       parent: _controller2,
       curve: Curves.easeOut,
@@ -63,8 +64,8 @@ class _WeatherScreenState extends State<WeatherScreen>
       vsync: this,
     );
     _animation3 = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset(0, 0),
+      begin: const Offset(0, 0.2),
+      end: const Offset(0, 0),
     ).animate(CurvedAnimation(
       parent: _controller3,
       curve: Curves.easeOut,
@@ -86,7 +87,7 @@ class _WeatherScreenState extends State<WeatherScreen>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // Set status bar color to white
       statusBarIconBrightness: Brightness.light, // Set status bar icons to dark
     ));
@@ -101,7 +102,7 @@ class _WeatherScreenState extends State<WeatherScreen>
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 255, 250, 1),
+      backgroundColor: const Color.fromRGBO(255, 255, 250, 1),
       body: SizedBox(
         height: screenHeight,
         child: Column(
@@ -123,7 +124,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                   child: Container(
                       height: 375,
                       width: double.maxFinite,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -146,7 +147,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                                     onTap: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Row(
+                                    child: const Row(
                                       children: [
                                         Icon(
                                           Icons.arrow_back_ios,
@@ -168,14 +169,14 @@ class _WeatherScreenState extends State<WeatherScreen>
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.thermostat,
                                         color: Colors.white,
                                         size: 25,
                                       ),
                                       Text(
                                         ' ${temperature}°',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 50,
                                             fontWeight: FontWeight.bold),
@@ -188,14 +189,14 @@ class _WeatherScreenState extends State<WeatherScreen>
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.water_drop_outlined,
                                         color: Colors.white,
                                         size: 25,
                                       ),
                                       Text(
                                         ' ${humidity}%',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 40,
                                             fontWeight: FontWeight.bold),
@@ -217,8 +218,8 @@ class _WeatherScreenState extends State<WeatherScreen>
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
               child: Text(
                 'Sun position',
                 style: TextStyle(
@@ -236,7 +237,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                       child: getCarBox(
                           sunLocation: sunLocationNow, timeTitle: 'Now'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SlideTransition(
@@ -244,7 +245,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                         child: getCarBox(
                             sunLocation: sunLocationAfterOneHour,
                             timeTitle: 'After 1 hour')),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SlideTransition(
@@ -267,8 +268,8 @@ class BackgroundSineWaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final Path path = Path();
-    final double amplitude = 20;
-    final double frequency = 0.56;
+    const double amplitude = 20;
+    const double frequency = 0.56;
     double x = size.width * 0.35;
     double y = size.height - 20 + amplitude * sin(0.7 * x * pi / 180);
     path.moveTo(x, y);
@@ -294,8 +295,8 @@ class SineWaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final Path path = Path();
-    final double amplitude = 20;
-    final double frequency = 0.7;
+    const double amplitude = 20;
+    const double frequency = 0.7;
 
     path.moveTo(0, size.height - 20);
     for (double x = 0; x <= size.width; x++) {

@@ -1,14 +1,17 @@
-import 'dart:io';
-
-import 'package:cool_seat/last_feature.dart';
-import 'package:cool_seat/maps_screen/maps_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AlarmScreen extends StatelessWidget {
+  const AlarmScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // Set status bar color to white
+      statusBarIconBrightness: Brightness.light, // Set status bar icons to dark
+    ));
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     String time = getTime();
@@ -16,7 +19,7 @@ class AlarmScreen extends StatelessWidget {
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.bottomCenter,
             radius: 1.1,
@@ -31,62 +34,73 @@ class AlarmScreen extends StatelessWidget {
               child: Container(
                   width: 220,
                   height: 150,
-                  padding: EdgeInsets.all(13),
+                  padding: const EdgeInsets.all(13),
                   child: Text(time,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 75, color: Colors.white)))),
+                      style: const TextStyle(fontSize: 75, color: Colors.white)))),
           Positioned(
               left: width / 2 - 110,
               bottom: height / 2 + 40,
               child: Container(
                   width: 220,
                   height: 60,
-                  padding: EdgeInsets.all(13),
-                  child: Text('Alarm',
+                  padding: const EdgeInsets.all(13),
+                  child: const Text('Alarm',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 30, color: Colors.white)))),
+          // Positioned(
+          //     left: width / 2 - 110,
+          //     bottom: height / 2 - 20,
+          //     child: Container(
+          //         width: 220,
+          //         height: 55,
+          //         padding: EdgeInsets.all(13),
+          //         decoration: BoxDecoration(
+          //           color: Colors.cyan,
+          //           borderRadius: BorderRadius.circular(20),
+          //         ),
+          //         child: Text('Snooze for 5 min',
+          //             textAlign: TextAlign.center,
+          //             style: TextStyle(fontSize: 19, color: Colors.white)))),
           Positioned(
-              left: width / 2 - 110,
-              bottom: height / 2 - 20,
-              child: Container(
-                  width: 220,
-                  height: 55,
-                  padding: EdgeInsets.all(13),
-                  decoration: BoxDecoration(
-                    color: Colors.cyan,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text('Snooze for 5 min',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 19, color: Colors.white)))),
+            left: width / 2 - 153,
+            bottom: 120-75,
+            child: const SpinKitRipple(color: Colors.white, size: 300),),
           Positioned(
               left: width / 2 - 75,
-              bottom: 50,
+              bottom: 120,
               child: InkWell(
-                onTap: () async{
+                onTap: () async {
                   FlutterBackgroundService().invoke('stopAlarm');
                   SystemNavigator.pop();
                 },
                 child: Container(
-                    width: 150,
-                    height: 50,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
+                    // width: 150,
+                    height: 150,
+                    padding: const EdgeInsets.all(45),
+                    decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      shape: BoxShape.circle,
                     ),
-                    child: Text('stop',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20))),
-              ))
+                    child: const Center(
+                      child: Text('stop',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 27,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black)),
+                    )),
+              )),
+
         ]),
       ),
     );
   }
 }
 
-String getTime(){
-  int hour = DateTime.now().hour < 13 ? DateTime.now().hour : DateTime.now().hour - 12;
+String getTime() {
+  int hour =
+      DateTime.now().hour < 13 ? DateTime.now().hour : DateTime.now().hour - 12;
   int minute = DateTime.now().minute;
   String hourString = hour < 10 ? '0$hour' : '$hour';
   String minuteString = minute < 10 ? '0$minute' : '$minute';

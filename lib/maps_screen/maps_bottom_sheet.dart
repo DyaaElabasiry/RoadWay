@@ -1,9 +1,9 @@
-import 'package:cool_seat/location_focus.dart';
+import 'package:RoadWay/location/location_focus.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
-import '../current_destination_location_helper.dart';
+import '../location/current_destination_location_helper.dart';
 import '../weather_screen/weather_screen.dart';
 import '../weather_screen/weather_screen_data.dart';
 
@@ -27,10 +27,10 @@ class MapsBottomSheet extends StatelessWidget{
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, -3), // changes position of shadow
+                  offset: const Offset(0, -3), // changes position of shadow
                 ),
               ],
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20)),
               color: Colors.white,
@@ -39,7 +39,7 @@ class MapsBottomSheet extends StatelessWidget{
               children: [
                 // notch
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   width: 20,
                   height: 4,
                   decoration: BoxDecoration(
@@ -50,8 +50,8 @@ class MapsBottomSheet extends StatelessWidget{
                 Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(30, 10, 30, 15),
-                      padding: EdgeInsets.fromLTRB(60, 10, 20, 10),
+                      margin: const EdgeInsets.fromLTRB(30, 10, 30, 15),
+                      padding: const EdgeInsets.fromLTRB(60, 10, 20, 10),
                       height: 170,
                       decoration: BoxDecoration(
                         color: Colors.grey.withOpacity(0.1),
@@ -65,8 +65,8 @@ class MapsBottomSheet extends StatelessWidget{
                                   locationFocus.setLocationFocusType(LocationFocusType.current);
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                  padding: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
                                     color: Colors.white,
@@ -79,7 +79,7 @@ class MapsBottomSheet extends StatelessWidget{
                                                 : 0),
                                         width: 2),
                                   ),
-                                  child: Row(
+                                  child: const Row(
                                     children: [
                                       Icon(
                                         Icons.location_on,
@@ -105,8 +105,8 @@ class MapsBottomSheet extends StatelessWidget{
                                   locationFocus.setLocationFocusType(LocationFocusType.destination);
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                  padding: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
                                     color: Colors.white,
@@ -119,7 +119,7 @@ class MapsBottomSheet extends StatelessWidget{
                                                 : 0),
                                         width: 2),
                                   ),
-                                  child: Row(
+                                  child: const Row(
                                     children: [
                                       Icon(
                                         Icons.location_on,
@@ -148,7 +148,7 @@ class MapsBottomSheet extends StatelessWidget{
                       child: Container(
                         width: 12,
                         height: 12,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           shape: BoxShape.circle,
                         ),
@@ -160,7 +160,7 @@ class MapsBottomSheet extends StatelessWidget{
                       child: Container(
                         width: 3,
                         height: 75,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                         ),
                       ),
@@ -186,13 +186,13 @@ class MapsBottomSheet extends StatelessWidget{
                         goToWeatherScreen(context);
                       },
                       child: Container(
-                        margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                        padding: EdgeInsets.fromLTRB(20, 7, 20, 7),
+                        margin: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.black,
                         ),
-                        child: Center(
+                        child: const Center(
                             child: Text(
                               'Next',
                               style: TextStyle(
@@ -215,7 +215,7 @@ void goToWeatherScreen(context)async{
   LocationController locationController = LocationController();
   if (locationController.currentLocation == null ||
       locationController.destinationLocation == null) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text(
           'Please select current and destination locations.'),
     ));
@@ -224,6 +224,6 @@ void goToWeatherScreen(context)async{
     LatLng destinationLocation = locationController.destinationLocation as LatLng;
     await WeatherScreenData().loadWeatherData(currentLocation,destinationLocation );
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WeatherScreen()));
+        builder: (context) => const WeatherScreen()));
   }
 }

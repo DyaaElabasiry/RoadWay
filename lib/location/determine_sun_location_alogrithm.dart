@@ -52,7 +52,6 @@ SunLocationResult getSunLocation(DateTime date , LatLng location,LatLng currentL
   }else{
     sun_intensity = 'High';
   }
-  print('Sun Position: $sunDirection and Sun Intensity: $sun_intensity');
   return SunLocationResult(sunDirection, altitude);
 }
 

@@ -14,7 +14,7 @@ class CarBoxRightSunRay extends StatelessWidget {
         Container(
           height: 130,
           width: double.maxFinite,
-          margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -23,20 +23,20 @@ class CarBoxRightSunRay extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.3),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
           child: Row(children: [
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
                   ),
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -51,7 +51,7 @@ class CarBoxRightSunRay extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(10),
                     bottomRight: Radius.circular(10),
@@ -59,7 +59,7 @@ class CarBoxRightSunRay extends StatelessWidget {
                 ),
                 child: Stack(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: double.maxFinite,
                       height: double.maxFinite,
                       child: Column(
@@ -87,7 +87,7 @@ class CarBoxRightSunRay extends StatelessWidget {
                               Colors.yellow.withOpacity(0.07)
                             ],
                           ),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(10),
                             bottomRight: Radius.circular(10),
                           ),
@@ -104,7 +104,7 @@ class CarBoxRightSunRay extends StatelessWidget {
           top: 0,
           right: 10,
           child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 boxShadow: [
                   // BoxShadow(
                   //   color: Colors.yellow.withOpacity(0.2),
@@ -114,7 +114,7 @@ class CarBoxRightSunRay extends StatelessWidget {
                   // ),
                 ],
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.sunny,
                 color: Colors.orangeAccent,
                 size: 30,
@@ -125,7 +125,7 @@ class CarBoxRightSunRay extends StatelessWidget {
           left: 45,
           child: Text(
             timeTitle,
-            style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
           ),
         )
       ],

@@ -15,9 +15,6 @@ Future<WeatherResult> getWeather({required LatLng location}) async {
   int currentHour = DateTime.now().hour;
   double temp = allTemp[currentHour] ;
   int humidity = allHumidity[currentHour];
-  print(currentHour);
-  print(temp);
-  print(humidity);
   return WeatherResult(temperature: temp,humidity: humidity);
 }
 class WeatherResult{

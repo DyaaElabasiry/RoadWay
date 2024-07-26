@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class NightBox extends StatelessWidget {
   final String timeTitle;
 
-  const NightBox({required this.timeTitle});
+  const NightBox({super.key, required this.timeTitle});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -13,20 +13,20 @@ class NightBox extends StatelessWidget {
         Container(
           height: 130,
           width: double.maxFinite,
-          margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           decoration: BoxDecoration(
-            color: Color.fromRGBO(35, 35, 41, 1),
+            color: const Color.fromRGBO(35, 35, 41, 1),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.nightlight_round, color: Colors.white, size: 80),
@@ -44,7 +44,7 @@ class NightBox extends StatelessWidget {
           left: 40,
           child: Text(
             timeTitle,
-            style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+            style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
           ),
         )
       ],

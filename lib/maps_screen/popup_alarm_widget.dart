@@ -1,15 +1,13 @@
-import 'package:cool_seat/location_service.dart';
+import 'package:RoadWay/location/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_popup/flutter_popup.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:wheel_picker/wheel_picker.dart';
 
-import '../current_destination_location_helper.dart';
-import '../database helper.dart';
+import '../location/current_destination_location_helper.dart';
 
 class PopupAlarm extends StatefulWidget {
-  const PopupAlarm({Key? key}) : super(key: key);
+  const PopupAlarm({super.key});
 
   @override
   State<PopupAlarm> createState() => _PopupAlarmState();
@@ -17,7 +15,7 @@ class PopupAlarm extends StatefulWidget {
 
 class _PopupAlarmState extends State<PopupAlarm> {
   final minutesWheel = WheelPickerController(itemCount: 60, initialIndex: 5);
-  var textStyle = TextStyle(fontSize: 35.0, height: 1.5);
+  var textStyle = const TextStyle(fontSize: 35.0, height: 1.5);
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +28,14 @@ class _PopupAlarmState extends State<PopupAlarm> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('An alarm is already running'),
+                  const Text('An alarm is already running'),
                   ElevatedButton(
                     onPressed: () async {
-                      FlutterBackgroundService().invoke('stopAlarm');
+                      FlutterBackgroundService().invoke('stopService');
                       setState(() {});
                       Navigator.pop(context);
                     },
-                    child: Text('Stop Alarm'),
+                    child: const Text('Stop Alarm'),
                   )
                 ],
               ),
@@ -57,7 +55,7 @@ class _PopupAlarmState extends State<PopupAlarm> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 4,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -66,7 +64,7 @@ class _PopupAlarmState extends State<PopupAlarm> {
                       builder: (context, index) {
                         return Text(
                           index.toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
                         );
                       },
                       selectedIndexColor: Colors.black,
@@ -82,17 +80,17 @@ class _PopupAlarmState extends State<PopupAlarm> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     width: 250,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
+                        const Text(
                           'Select the number of minutes for the alarm to fire before reaching your destination',
                           style: TextStyle(fontSize: 17),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 40,
                         ),
                         Row(
@@ -102,11 +100,11 @@ class _PopupAlarmState extends State<PopupAlarm> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text('Cancel')),
+                                child: const Text('Cancel')),
                             ElevatedButton(
                                 onPressed: () async {
                                   if(LocationController().destinationLocation==null){
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please select a destination')));
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please select a destination')));
                                     Navigator.pop(context);
                                   }else{
                                     try {
@@ -125,7 +123,7 @@ class _PopupAlarmState extends State<PopupAlarm> {
                                     }
                                   }
                                 },
-                                child: Text('Save'))
+                                child: const Text('Save'))
                           ],
                         )
                       ],
@@ -136,14 +134,14 @@ class _PopupAlarmState extends State<PopupAlarm> {
             );
           }
           return Container(
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           );
         }
       ),
       child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
@@ -152,11 +150,11 @@ class _PopupAlarmState extends State<PopupAlarm> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: const Offset(0, 3), // changes position of shadow
               ),
             ],
           ),
-          child: Icon(
+          child: const Icon(
             Icons.alarm,
             color: Colors.black,
             size: 30,

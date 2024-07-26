@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:cool_seat/database%20helper.dart';
-import 'package:http_client/console.dart';
 import 'package:latlong2/latlong.dart';
 
 class LinkHelper {
@@ -26,10 +24,8 @@ class LinkHelper {
       RegExpMatch? match = coordinates.firstMatch(url);
       double latitude = double.parse(match?.group(1) ?? '0');
       double longitude = double.parse(match?.group(2) ?? '0');
-      print( {'latitude': match?.group(1), 'longitude': match?.group(2)});
       return LatLng(latitude, longitude);
     } on Exception catch (e) {
-      print('an error occured $e');
       return null;
     }
   }

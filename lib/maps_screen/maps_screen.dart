@@ -1,24 +1,23 @@
-import 'package:cool_seat/current_destination_location_helper.dart';
-import 'package:cool_seat/location_focus.dart';
-import 'package:cool_seat/location_service.dart';
-import 'package:cool_seat/maps_screen/maps_bottom_sheet.dart';
-import 'package:cool_seat/maps_screen/popup_alarm_widget.dart';
-import 'package:cool_seat/maps_screen/popup_saved_locations_widget.dart';
-import 'package:cool_seat/maps_screen/save_location_alert_dialog.dart';
-import 'package:cool_seat/weather_screen/weather_screen.dart';
-import 'package:cool_seat/weather_screen/weather_screen_data.dart';
+import 'package:RoadWay/location/current_destination_location_helper.dart';
+import 'package:RoadWay/location/location_focus.dart';
+import 'package:RoadWay/location/location_service.dart';
+import 'package:RoadWay/maps_screen/maps_bottom_sheet.dart';
+import 'package:RoadWay/maps_screen/popup_alarm_widget.dart';
+import 'package:RoadWay/maps_screen/popup_saved_locations_widget.dart';
+import 'package:RoadWay/maps_screen/save_location_alert_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_popup/flutter_popup.dart';
+
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
-import '../links.dart';
+import '../location/links.dart';
 
 class OSMScreen extends StatefulWidget {
-  const OSMScreen({Key? key}) : super(key: key);
+  const OSMScreen({super.key});
 
   @override
   State<OSMScreen> createState() => _OSMScreenState();
@@ -34,22 +33,23 @@ class _OSMScreenState extends State<OSMScreen> {
     // TODO: implement initState
     super.initState();
     ReceiveSharingIntent.instance.getInitialMedia().then((value)async{
-      String link = value![0].path;
-      print(link);
-      LatLng? coordinates = await LinkHelper().getCoordinates(link);
-      if(coordinates != null){
-        mapController.move(coordinates, 10);
-        LocationController().setDestinationLocation(coordinates);
-      }
+      if (value.isNotEmpty) {
+        String link = value[0].path;
+        LatLng? coordinates = await LinkHelper().getCoordinates(link);
+        if(coordinates != null){
+          mapController.move(coordinates, 10);
+          LocationController().setDestinationLocation(coordinates);
+        }
 
-      // Tell the library that we are done processing the intent.
-      ReceiveSharingIntent.instance.reset();
+        // Tell the library that we are done processing the intent.
+        ReceiveSharingIntent.instance.reset();
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // Set status bar color to white
       statusBarIconBrightness: Brightness.dark, // Set status bar icons to dark
     ));
@@ -72,9 +72,8 @@ class _OSMScreenState extends State<OSMScreen> {
                         mapController: mapController,
                         options: MapOptions(
                           backgroundColor: Colors.white,
-                          initialCenter: LatLng(31.190211, 29.916429),
+                          initialCenter: const LatLng(31.190211, 29.916429),
                           onTap: (_, latlng) {
-                            print(latlng);
                             if (locationFocus.locationFocusType == LocationFocusType.current) {
                               locationController.setCurrentLocation(latlng);
                             } else {
@@ -117,7 +116,7 @@ class _OSMScreenState extends State<OSMScreen> {
                             }
                           },
                           child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
@@ -127,11 +126,11 @@ class _OSMScreenState extends State<OSMScreen> {
                                     spreadRadius: 5,
                                     blurRadius: 7,
                                     offset:
-                                    Offset(0, 3), // changes position of shadow
+                                    const Offset(0, 3), // changes position of shadow
                                   ),
                                 ],
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.my_location_sharp,
                                 color: Colors.black,
                                 size: 30,
@@ -140,7 +139,7 @@ class _OSMScreenState extends State<OSMScreen> {
                     Positioned(
                         bottom: 100,
                         right: 10,
-                        child: PopupSavedLocations()),
+                        child: PopupSavedLocations(mapController: mapController,)),
                     Positioned(
                         bottom: 170,
                         right: 10,
@@ -149,7 +148,7 @@ class _OSMScreenState extends State<OSMScreen> {
                             showSaveLocationAlertDialog(context);
                           },
                           child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
@@ -159,17 +158,17 @@ class _OSMScreenState extends State<OSMScreen> {
                                     spreadRadius: 5,
                                     blurRadius: 7,
                                     offset:
-                                    Offset(0, 3), // changes position of shadow
+                                    const Offset(0, 3), // changes position of shadow
                                   ),
                                 ],
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.bookmark_add_outlined,
                                 color: Colors.black,
                                 size: 30,
                               )),
                         )),
-                    Positioned(
+                    const Positioned(
                         bottom: 240,
                         right: 10,
                         child: PopupAlarm()),

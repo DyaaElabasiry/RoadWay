@@ -1,9 +1,8 @@
-import 'package:cool_seat/current_destination_location_helper.dart';
-import 'package:cool_seat/database%20helper.dart';
-import 'package:cool_seat/location_focus.dart';
+import 'package:RoadWay/location/current_destination_location_helper.dart';
+import 'package:RoadWay/database/database%20helper.dart';
+import 'package:RoadWay/location/location_focus.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:provider/provider.dart';
 
 void showSaveLocationAlertDialog(BuildContext context) {
   showDialog(
@@ -18,22 +17,22 @@ void showSaveLocationAlertDialog(BuildContext context) {
           LocationController().currentLocation != null ? LocationFocusType.current : LocationFocusType.destination;
       return AlertDialog(
         backgroundColor: Colors.white,
-        title: Text('Save Location'),
+        title: const Text('Save Location'),
         content: locationNotSelected
-            ? Text('please set any location to save')
+            ? const Text('please set any location to save')
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     // height: 50,
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(245, 245, 245, 1),
+                      color: const Color.fromRGBO(245, 245, 245, 1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
                       controller: nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Name',
                         hintText: 'Enter a name for this location',
                         border: InputBorder.none
@@ -43,10 +42,10 @@ void showSaveLocationAlertDialog(BuildContext context) {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  LocationSelection(),
+                  const LocationSelection(),
                 ],
               ),
         actions: [
@@ -55,10 +54,10 @@ void showSaveLocationAlertDialog(BuildContext context) {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
           locationNotSelected
-              ? SizedBox()
+              ? const SizedBox()
               : ElevatedButton(
                   onPressed: () {
                     LatLng location = LocationFocus().locationFocusType == LocationFocusType.current
@@ -71,7 +70,7 @@ void showSaveLocationAlertDialog(BuildContext context) {
                     DatabaseHelper().insert(savedLocation);
                     Navigator.of(context).pop();
                   },
-                  child: Text('Save'),
+                  child: const Text('Save'),
                 ),
         ],
       );
@@ -95,7 +94,7 @@ class _LocationSelectionState extends State<LocationSelection> {
         mainAxisSize: MainAxisSize.min,
         children: [
           LocationController().currentLocation == null
-              ? SizedBox()
+              ? const SizedBox()
               : InkWell(
                   splashColor: Colors.transparent,
                   onTap: () {
@@ -103,8 +102,8 @@ class _LocationSelectionState extends State<LocationSelection> {
                     setState(() {});
                   },
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    padding: EdgeInsets.all(10),
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.white,
@@ -113,7 +112,7 @@ class _LocationSelectionState extends State<LocationSelection> {
                               locationFocus.locationFocusType == LocationFocusType.current ? 1 : 0),
                           width: 2),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
                         Icon(
                           Icons.location_on,
@@ -133,7 +132,7 @@ class _LocationSelectionState extends State<LocationSelection> {
                     ),
                   )),
           LocationController().destinationLocation == null
-              ? SizedBox()
+              ? const SizedBox()
               : InkWell(
                   splashColor: Colors.transparent,
                   onTap: () {
@@ -141,8 +140,8 @@ class _LocationSelectionState extends State<LocationSelection> {
                     setState(() {});
                   },
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    padding: EdgeInsets.all(10),
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.white,
@@ -151,7 +150,7 @@ class _LocationSelectionState extends State<LocationSelection> {
                               locationFocus.locationFocusType == LocationFocusType.destination ? 1 : 0),
                           width: 2),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
                         Icon(
                           Icons.location_on,

@@ -44,7 +44,6 @@ void onStart(ServiceInstance service) async {
     int timeInMinutes = event['timeInMinutes'];
     // if i get 0 from the time slider
     timeInMinutes = timeInMinutes == 0 ? 1 : timeInMinutes;
-
     positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings).listen((Position? position) {
       double distance = Geolocator.distanceBetween(
@@ -71,6 +70,4 @@ void onStart(ServiceInstance service) async {
     service.invoke('alarmState', {'alarmState': alarmState});
   });
 
-  Timer.periodic(const Duration(seconds: 1), (timer) async {
-  });
 }

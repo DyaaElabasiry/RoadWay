@@ -52,6 +52,7 @@ dependencies:
   open_meteo: ^1.0.7
   provider: ^6.1.2
   flutter_spinkit: ^5.2.1
+  permission_handler: ^11.3.1
 
 
 

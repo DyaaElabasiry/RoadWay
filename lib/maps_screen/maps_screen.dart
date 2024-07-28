@@ -39,7 +39,12 @@ class _OSMScreenState extends State<OSMScreen> {
         if(coordinates != null){
           mapController.move(coordinates, 10);
           LocationController().setDestinationLocation(coordinates);
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Please open the google maps link in the browser first and then share it to the app'),
+          ));
         }
+
 
         // Tell the library that we are done processing the intent.
         ReceiveSharingIntent.instance.reset();

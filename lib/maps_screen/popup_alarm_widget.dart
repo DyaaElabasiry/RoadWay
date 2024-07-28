@@ -2,6 +2,7 @@ import 'package:RoadWay/location/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_popup/flutter_popup.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:wheel_picker/wheel_picker.dart';
 
 import '../location/current_destination_location_helper.dart';
@@ -19,6 +20,7 @@ class _PopupAlarmState extends State<PopupAlarm> {
 
   @override
   Widget build(BuildContext context) {
+
     return CustomPopup(
       content: FutureBuilder(
         future: FlutterBackgroundService().isRunning(),
@@ -103,6 +105,7 @@ class _PopupAlarmState extends State<PopupAlarm> {
                                 child: const Text('Cancel')),
                             ElevatedButton(
                                 onPressed: () async {
+                                  Permission.notification.request();
                                   if(LocationController().destinationLocation==null){
                                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please select a destination')));
                                     Navigator.pop(context);

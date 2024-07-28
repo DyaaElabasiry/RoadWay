@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:RoadWay/weather_screen/Night.dart';
 import 'package:RoadWay/weather_screen/car_right_sunray_widget.dart';
-// ignore: unused_import
-import 'package:RoadWay/location/current_destination_location_helper.dart';
+
 import 'package:RoadWay/location/determine_sun_location_alogrithm.dart';
+import 'package:RoadWay/weather_screen/sine_wave_clipper.dart';
 import 'package:RoadWay/weather_screen/weather_screen_data.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 
+import '../alarm_screen.dart';
 import 'car_left_sunray_widget.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -18,8 +21,10 @@ class WeatherScreen extends StatefulWidget {
   State<WeatherScreen> createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen>
-    with TickerProviderStateMixin {
+class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateMixin {
+  bool alarmState = false;
+  late StreamSubscription alarmStateSubscription;
+
   late AnimationController _controller1;
   late Animation<Offset> _animation1;
 
@@ -32,6 +37,15 @@ class _WeatherScreenState extends State<WeatherScreen>
   @override
   void initState() {
     super.initState();
+
+    FlutterBackgroundService().invoke('getAlarmState');
+    alarmStateSubscription = FlutterBackgroundService().on('alarmState').listen((event) {
+      if (mounted) {
+        setState(() {
+          alarmState = event!['alarmState'];
+        });
+      }
+    });
 
     // First widget
     _controller1 = AnimationController(
@@ -82,6 +96,7 @@ class _WeatherScreenState extends State<WeatherScreen>
     _controller1.dispose();
     _controller2.dispose();
     _controller3.dispose();
+    alarmStateSubscription.cancel();
     super.dispose();
   }
 
@@ -95,13 +110,11 @@ class _WeatherScreenState extends State<WeatherScreen>
     double temperature = weatherScreenData.weatherNow!.temperature;
     int humidity = weatherScreenData.weatherNow!.humidity;
     SunLocationResult sunLocationNow = weatherScreenData.sunLocationNow!;
-    SunLocationResult sunLocationAfterOneHour =
-        weatherScreenData.sunLocationAfterOneHour!;
-    SunLocationResult sunLocationAfterTwoHours =
-        weatherScreenData.sunLocationAfterTwoHours!;
+    SunLocationResult sunLocationAfterOneHour = weatherScreenData.sunLocationAfterOneHour!;
+    SunLocationResult sunLocationAfterTwoHours = weatherScreenData.sunLocationAfterTwoHours!;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
+    return alarmState ? const AlarmScreen() : Scaffold(
       backgroundColor: const Color.fromRGBO(255, 255, 250, 1),
       body: SizedBox(
         height: screenHeight,
@@ -264,57 +277,6 @@ class _WeatherScreenState extends State<WeatherScreen>
   }
 }
 
-class BackgroundSineWaveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final Path path = Path();
-    const double amplitude = 20;
-    const double frequency = 0.56;
-    double x = size.width * 0.35;
-    double y = size.height - 20 + amplitude * sin(0.7 * x * pi / 180);
-    path.moveTo(x, y);
-    for (double x = size.width * 0.35; x <= size.width; x++) {
-      double y = size.height - 20 + amplitude * sin(frequency * x * pi / 180);
-      path.lineTo(x, y);
-    }
-    // Complete the rectangle
-    path.lineTo(size.width, 0);
-    path.lineTo(0, 0);
-    path.lineTo(0, size.height - 20);
-
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
-}
-
-class SineWaveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final Path path = Path();
-    const double amplitude = 20;
-    const double frequency = 0.7;
-
-    path.moveTo(0, size.height - 20);
-    for (double x = 0; x <= size.width; x++) {
-      double y = size.height - 20 + amplitude * sin(frequency * x * pi / 180);
-      path.lineTo(x, y);
-    }
-    // Complete the rectangle
-    path.lineTo(size.width, 0);
-    path.lineTo(0, 0);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
-}
-
 Widget getCarBox(
     {required SunLocationResult sunLocation, required String timeTitle}) {
   if (sunLocation.sunDirection == SunDirection.right) {
@@ -324,6 +286,6 @@ Widget getCarBox(
     return CarBoxLeftSunRay(
         sunRayAngle: sunLocation.altitude, timeTitle: timeTitle);
   } else {
-    return NightBox( timeTitle: timeTitle);
+    return NightBox(timeTitle: timeTitle);
   }
 }

@@ -51,7 +51,10 @@ Additionally, the app features an alarm that notifies you a certain number of mi
 
 <br><br>
 - Sharing location to the app
-<video height="500" src="https://github.com/user-attachments/assets/7bad127d-abff-4efa-a837-c3e064190bbe" frameborder="0"></video>
+<video height="500" src="https://github.com/user-attachments/assets/d15ecff1-0e83-42f7-a4e6-220adc359ea4" frameborder="0"></video>
+
+
+
 
 
 ## Get the app

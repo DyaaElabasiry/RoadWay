@@ -13,7 +13,7 @@ Additionally, the app features an alarm that notifies you a certain number of mi
 ### Calculating sun location
 - having the current and destination location we should convert it to a vector to get the angle
 - after that we should convert the Azimuth angle which ranges from `( -180 , 180 )` to the standard postion system which ranges from `( 0 , 360 )` <br>
-<img src="https://github.com/user-attachments/assets/be7cf97e-e0a6-4f6a-8f4d-33066aa6e5fb" alt="Illustration"  width="72%" >
+<img src="https://github.com/user-attachments/assets/be7cf97e-e0a6-4f6a-8f4d-33066aa6e5fb" alt="Illustration"  width="72%" height="72%" >
  <br><br>
 
 - then compare the location angle with the Azimuth angle to find whether the sun is on the left or the right of the car<br>

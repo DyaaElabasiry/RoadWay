@@ -17,7 +17,7 @@ Additionally, the app features an alarm that notifies you a certain number of mi
  <br><br>
 
 - then compare the location angle with the Azimuth angle to find whether the sun is on the left or the right of the car<br>
-<img src="https://github.com/user-attachments/assets/e032d3bb-f74f-40bf-a550-8f6f6c8f4217" alt="Illustration"  height="400">
+<img src="https://github.com/user-attachments/assets/e032d3bb-f74f-40bf-a550-8f6f6c8f4217" alt="Illustration"  width="72%" height="72%">
 
 
 

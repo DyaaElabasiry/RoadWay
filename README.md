@@ -58,7 +58,7 @@ Additionally, the app features an alarm that notifies you a certain number of mi
 
 
 ## Get the app
-you can download the apk from [here](https://github.com/DyaaElabasiry/RoadWay/releases/tag/v1.0.0)
+you can download the apk from [here](https://github.com/DyaaElabasiry/RoadWay/releases/download/v1.0.0/RoadWay.apk)
 
 ## Problems I faced
 - location links shared from the app cannot be converted to the long link to get the coordinates<br>
